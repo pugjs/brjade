@@ -3,9 +3,9 @@
 var path = require('path');
 var through = require('through2');
 var staticModule = require('static-module');
-var quote = require('quote-stream');
 var resolve = require('resolve');
 var assign = require('object-assign');
+var stringify = require('js-stringify');
 var jade = require('jade');
 
 module.exports = transform;
@@ -42,20 +42,12 @@ function transform( file, opts ){
 	}
 
 	function renderFile( file, opts ){
-		var markup = quote();
-
-		markup.end(jade.renderFile(file, opts));
-
 		sm.emit('file', file);
 
-		return markup;
+		return stringify(jade.renderFile(file, opts));
 	}
 
 	function render( source, opts ){
-		var markup = quote();
-
-		markup.end(jade.render(source, opts));
-
-		return markup;
+		return stringify(jade.render(source, opts));
 	}
 };
