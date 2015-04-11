@@ -1,6 +1,6 @@
 {
 	"name": "brjade",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"description": "Turn jade.render and jade.renderFile calls into inlined markup",
 	"repository": {
 		"type": "git",
