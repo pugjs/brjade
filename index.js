@@ -5,6 +5,7 @@ var through = require('through2');
 var staticModule = require('static-module');
 var quote = require('quote-stream');
 var resolve = require('resolve');
+var assign = require('object-assign');
 var jade = require('jade');
 
 module.exports = transform;
@@ -16,16 +17,11 @@ function transform( file, opts ){
 	if (!opts)
 		opts = {};
 
-	var vars = {
+	var vars = assign({
 		__filename: file,
 		__dirname: path.dirname(file),
 		require: { resolve: resolver }
-	};
-
-	if (opts.vars)
-		Object.keys(opts.vars).forEach(function( key ){
-			vars[key] = opts.vars[key];
-		});
+	}, opts.vars);
 
 	var sm = staticModule({
 		jade: {
@@ -37,11 +33,13 @@ function transform( file, opts ){
 		varModules: { path: path },
 	});
 
-	function resolver(p){
-		return resolve.sync(p, { basedir: path.dirname(file) });
-	}
-
 	return sm;
+
+	function resolver( p ){
+		return resolve.sync(p, {
+			basedir: path.dirname(file),
+		});
+	}
 
 	function renderFile( file, opts ){
 		var markup = quote();
