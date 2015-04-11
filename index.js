@@ -42,12 +42,24 @@ function transform( file, opts ){
 	}
 
 	function renderFile( file, opts ){
-		sm.emit('file', file);
+		var render = jade.compileFile(file, opts);
 
-		return stringify(jade.renderFile(file, opts));
+		track(sm, [ file ].concat(render.dependencies));
+
+		return stringify(render());
 	}
 
 	function render( source, opts ){
-		return stringify(jade.render(source, opts));
+		var render = jade.compile(source, opts);
+
+		track(sm, render.dependencies);
+
+		return stringify(render());
 	}
 };
+
+function track( sm, files ){
+	files.forEach(function( file ){
+		sm.emit('file', file);
+	});
+}
