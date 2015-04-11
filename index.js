@@ -46,7 +46,7 @@ function transform( file, opts ){
 
 		track(sm, [ file ].concat(render.dependencies));
 
-		return stringify(render());
+		return stringify(render(opts));
 	}
 
 	function render( source, opts ){
@@ -54,7 +54,7 @@ function transform( file, opts ){
 
 		track(sm, render.dependencies);
 
-		return stringify(render());
+		return stringify(render(opts));
 	}
 };
 
