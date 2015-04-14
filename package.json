@@ -4,7 +4,7 @@
 	"description": "Turn jade.render and jade.renderFile calls into inlined markup",
 	"repository": {
 		"type": "git",
-		"url": "git@github.com:srcagency/brjade.git"
+		"url": "git@github.com:jadejs/brjade.git"
 	},
 	"dependencies": {
 		"static-module": "^1.1.2",
