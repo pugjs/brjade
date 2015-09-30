@@ -17,7 +17,7 @@ When bundling:
 
 ```js
 var fs = require('fs');
-var browerify = require('browerify');
+var browserify = require('browserify');
 var brjade = require('brjade');
 
 browserify('index.js')
